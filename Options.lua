@@ -65,11 +65,10 @@ end
 
 -- LibDataBroker launcher: only if a broker display already loaded LibStub + LibDataBroker-1.1.
 function ns.BuildLauncher()
-  if ns.launcher or type(LibStub) ~= "table" then return end
-  local ldb = LibStub("LibDataBroker-1.1", true)
-  if not ldb then return end
-  ns.launcher = ldb:NewDataObject(addonName, {
-    type = "launcher",
+  if ns.launcher then return end
+  -- One shared "Kenny's addons" entry with a menu when several of our addons are installed; our own when alone.
+  ns.launcher = ns.Hub.Launcher(addonName, {
+    type = "launcher", leftHint = "Options", rightHint = "Mute or unmute lines",
     label = "BRBoss",
     icon = "Interface\\AddOns\\BRBoss\\media\\icon",
     OnClick = function(_, button)

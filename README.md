@@ -1,6 +1,6 @@
 <p align="center"><img src="media/logo.png" alt="BRBoss logo" width="200"></p>
 
-# BRBoss (WoW: Forever) v1.0.0
+# BRBoss (WoW: Forever) v1.1.0
 
 [![Tests](https://github.com/masterred92/BRBoss/actions/workflows/tests.yml/badge.svg)](https://github.com/masterred92/BRBoss/actions/workflows/tests.yml) [![WoW: Forever](https://img.shields.io/badge/WoW%3A%20Forever-Interface%2016001-c8a165)](https://github.com/masterred92/BRBoss/blob/main/BRBoss.toc) [![Release](https://img.shields.io/github/v/release/masterred92/BRBoss?label=release)](https://github.com/masterred92/BRBoss/releases) [![License: MIT](https://img.shields.io/github/license/masterred92/BRBoss)](https://github.com/masterred92/BRBoss/blob/main/LICENSE)
 
@@ -19,6 +19,8 @@ It doesn't send hidden addon messages and doesn't automate anything. It only rea
 <p align="center"><img src="media/screenshots/mockup-break.png" alt="BRBoss preview" width="560"></p>
 
 **Needs:** Optional: [DBM](https://www.curseforge.com/wow/addons/deadly-boss-mods) or [BigWigs](https://www.curseforge.com/wow/addons/big-wigs). Without either, it still hears Blizzard's own pull countdown.
+
+**Works with:** DBM or BigWigs (required for the timers). Never talks over Wipe & Win Lines, Questie: Job's Done or a Grunt Count countdown.
 
 ## Download
 - **Wago Addons:** coming at launch (Nov 4). The link goes here when the project is live.

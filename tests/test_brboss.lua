@@ -22,7 +22,7 @@ BigWigsLoader = { RegisterMessage = function(owner, m, f) msgs[m] = f end,
 local function bwSend(m, ...) if msgs[m] then msgs[m](m, ...) end end
 
 local ns = M.loadAddon(".", "BRBoss")
-M.fire("PLAYER_LOGIN")
+M.fire("PLAYER_LOGIN"); M.advance(0) -- the shared launcher is built one frame after login
 local B = ns.BRB
 M.check(B.dbmHooked, "DBM hooked at pinned revision")
 M.check(B.bwHooked, "BigWigs hooked")
@@ -138,4 +138,11 @@ M.slash("/brb", "test")
 M.check(#M.sounds == 3, "/brb test plays")
 M.slash("/brb", "61")
 M.check(M.printed("usage"), "range check")
+-- 1.1.0: a quote never plays over another of our voice lines
+KennyAddonsHub.MarkVoiceBusy(5)
+B.db.throttle = 0
+local okBusy, why = B.PlayQuote("break")
+M.check(okBusy == false and why == "busy", "quote waits while another voice line plays")
+M.advance(6)
+M.check((B.PlayQuote("break")), "quote plays afterwards")
 M.done("BRBoss")

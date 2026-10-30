@@ -84,7 +84,14 @@ function BRB.PlayQuote(kind, force, quote)
   local now = GetTime()
   if not force and now - lastPlay < db.throttle then return false, "throttled" end
   local q = quote or BRB.PickQuote(kind)
-  local ok, willPlay = pcall(PlaySoundFile, q.id, db.channel)
+  local ok, willPlay
+  if force then ok, willPlay = pcall(PlaySoundFile, q.id, db.channel)
+  else
+    -- Never over another of our voice lines (a Job's done!, DBM's victory sound, a BigWigs countdown).
+    local played, why = ns.Hub.PlayVoice(q.id, db.channel, 6)
+    if not played and why == "busy" then return false, "busy" end
+    ok, willPlay = played, played
+  end
   if not ok or not willPlay then return false, "sound" end
   lastPlay = now
   if db.subtitle then say(("%s: \"%s\""):format(q.who, q.line)) end
@@ -256,7 +263,14 @@ local HELP = {
   "/brb test - hear a line now",
   "/brb mute - turn the lines on or off",
   "/brb options - open the settings",
+  "/brb debug - check your setup (client APIs, DBM/BigWigs hooks)",
 }
+
+ns.Core.Setup({ cmd = "/brb", required = { "PlaySoundFile", "C_Timer.NewTimer", "C_Timer.After" },
+  optional = { "DBM.RegisterCallback", "BigWigsLoader.RegisterMessage", "C_PartyInfo.DoCountdown", "LibStub" },
+  debugLines = function()
+    return { ("DBM hooked: %s, BigWigs hooked: %s, timers pending: %d"):format(tostring(BRB.dbmHooked == true), tostring(BRB.bwHooked == true), #pending) }
+  end })
 
 function BRB.Slash(msg)
   msg = strtrim((msg or ""):lower())
@@ -269,6 +283,7 @@ function BRB.Slash(msg)
     local ok, why = BRB.PlayQuote(b == "pull" and "pull" or "break", true)
     if not ok then say(why == "combat" and "not in combat." or "that line didn't play.") end
   elseif a == "mute" then db.enabled = not db.enabled; say(db.enabled and "lines on." or "lines muted.")
+  elseif a == "debug" then ns.Core.PrintDebug()
   elseif a == "options" or a == "config" then if ns.OpenOptions then ns.OpenOptions() end
   else say("unknown command; /brb help") end
 end
