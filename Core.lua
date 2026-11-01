@@ -34,7 +34,7 @@ local warned = {}
 local function say(msg) print("|cffffd200BRBoss|r: " .. msg) end
 BRB.say = say
 
-local function secret(v) return issecretvalue and issecretvalue(v) end
+local secret = ns.Compat.IsSecret -- shared helper (KennyShared)
 
 local function inEncounter()
   return C_InstanceEncounter and C_InstanceEncounter.IsEncounterInProgress and C_InstanceEncounter.IsEncounterInProgress()
