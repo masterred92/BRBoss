@@ -2,7 +2,7 @@
 ## Title: BRBoss
 ## Notes: A boss voice line when the raid break ends (and, optionally, at pull 0). Uses DBM, BigWigs or the Blizzard countdown.
 ## Author: Kenny
-## Version: 1.1.0
+## Version: 1.1.1
 ## SavedVariables: BRBossDB
 ## OptionalDeps: DBM-Core, BigWigs, LibDataBroker-1.1
 ## X-Hosts: DeadlyBossMods, BigWigs

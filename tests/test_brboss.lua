@@ -29,12 +29,12 @@ M.check(B.bwHooked, "BigWigs hooked")
 M.check(M.settingsCategory and M.settingsCategory.name == "BRBoss", "settings category registered")
 M.check(M.ldbObjects.BRBoss and M.ldbObjects.BRBoss.type == "launcher", "LDB launcher")
 
--- 1. /brb 5 solo with DBM -> DBM break timer -> quote at the end
-M.slash("/brb", "5")
+-- 1. /brboss 5 solo with DBM -> DBM break timer -> quote at the end
+M.slash("/brboss", "5")
 M.check(DBM.lastBreak == 5, "DBM:CreateBreakTimer(5) called")
 M.check(#B.Pending() == 1, "break tracked from DBM_TimerBegin")
 DBM.lastBreak = nil
-M.slash("/brb", "5")
+M.slash("/brboss", "5")
 M.check(M.printed("wait") and DBM.lastBreak == nil, "30 s command cooldown")
 -- BigWigs also reports the same break (it hears DBM's sync): must de-dupe
 bwSend("BigWigs_StartBreak", {}, 300, "Kenny")
@@ -49,10 +49,10 @@ M.check(M.printed("BRBoss"), "subtitle printed")
 
 -- 3. cancel via DBM stop
 M.advance(31)
-M.slash("/brb", "2")
+M.slash("/brboss", "2")
 M.check(#B.Pending() == 1, "second break tracked")
-M.slash("/brb", "0")
-M.check(#B.Pending() == 0, "/brb 0 cancels")
+M.slash("/brboss", "0")
+M.check(#B.Pending() == 0, "/brboss 0 cancels")
 M.advance(200)
 M.check(#M.sounds == 1, "cancelled break stays silent")
 
@@ -130,13 +130,13 @@ M.check(not B.dbmHooked and M.printed("older"), "DBM below the pinned revision i
 
 -- 10. pull command falls back to the Blizzard countdown
 DBM = nil; SlashCmdList["pull"] = nil
-M.check(B.StartPull(10) == "Blizzard" and M.lastCountdown == 10, "/brb pull -> C_PartyInfo.DoCountdown")
+M.check(B.StartPull(10) == "Blizzard" and M.lastCountdown == 10, "/brboss pull -> C_PartyInfo.DoCountdown")
 
 -- 11. test command and bad input
 M.advance(100)
-M.slash("/brb", "test")
-M.check(#M.sounds == 3, "/brb test plays")
-M.slash("/brb", "61")
+M.slash("/brboss", "test")
+M.check(#M.sounds == 3, "/brboss test plays")
+M.slash("/brboss", "61")
 M.check(M.printed("usage"), "range check")
 -- 1.1.0: a quote never plays over another of our voice lines
 KennyAddonsHub.MarkVoiceBusy(5)

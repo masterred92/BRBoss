@@ -2,12 +2,12 @@
 local addonName, ns = ...
 
 local CHECKS = {
-  { "enabled", "Play boss lines", "Master switch. /brb mute toggles it too." },
+  { "enabled", "Play boss lines", "Master switch. /brboss mute toggles it too." },
   { "breakQuote", "Line when a break ends", "When a DBM, BigWigs or BRBoss break runs out." },
   { "pullQuote", "Pull Quote: line at pull 0", "When a DBM, BigWigs or Blizzard pull countdown hits zero." },
   { "subtitle", "Show the line in chat", "Prints who said it and what they said." },
   { "trustedOnly", "Only timers from me, friends or guild", "Applies when the host tells us who started the timer." },
-  { "announce", "/brb also posts one line to party/raid chat", "Off by default. Never posts during chat lockdown." },
+  { "announce", "/brboss also posts one line to party/raid chat", "Off by default. Never posts during chat lockdown." },
 }
 
 function ns.QuoteLabel(key)
@@ -26,7 +26,7 @@ function ns.BuildOptions()
   title:SetText("BRBoss")
   local sub = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
   sub:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -6)
-  sub:SetText("A boss voice line when the raid break ends. Type /brb help for commands.")
+  sub:SetText("A boss voice line when the raid break ends. Type /brboss help for commands.")
   local y = -64
   for _, c in ipairs(CHECKS) do
     local key, label = c[1], c[2]

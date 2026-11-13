@@ -22,7 +22,7 @@ local defaults = {
   subtitle = true,      -- print the line in chat when it plays
   throttle = 60,        -- seconds between two lines
   trustedOnly = false,  -- only react to timers started by you, a friend or a guild member (when the sender is known)
-  announce = false,     -- /brb also posts one line to party/raid chat
+  announce = false,     -- /brboss also posts one line to party/raid chat
 }
 BRB.defaults = defaults
 
@@ -77,7 +77,7 @@ function BRB.PickQuote(kind)
   return pool[math.random(#pool)]
 end
 
--- force = the /brb test button: skips the throttle, still never plays in combat or during an encounter.
+-- force = the /brboss test button: skips the throttle, still never plays in combat or during an encounter.
 function BRB.PlayQuote(kind, force, quote)
   if not force and not db.enabled then return false, "off" end
   if InCombatLockdown() or inEncounter() then return false, "combat" end
@@ -210,7 +210,7 @@ end
 
 function BRB.StartBreak(minutes)
   minutes = tonumber(minutes)
-  if not minutes or minutes ~= math.floor(minutes) or minutes < 1 or minutes > 60 then say("usage: /brb 1-60 (minutes)") return end
+  if not minutes or minutes ~= math.floor(minutes) or minutes < 1 or minutes > 60 then say("usage: /brboss 1-60 (minutes)") return end
   if InCombatLockdown() or inEncounter() then say("not in combat or during an encounter.") return end
   local now = GetTime()
   if now - lastCommand < COMMAND_COOLDOWN then say(("wait %d s before starting another break."):format(math.ceil(COMMAND_COOLDOWN - (now - lastCommand)))) return end
@@ -249,7 +249,7 @@ end
 
 function BRB.StartPull(seconds)
   seconds = tonumber(seconds) or 10
-  if seconds < 3 or seconds > 60 then say("usage: /brb pull 3-60 (seconds)") return end
+  if seconds < 3 or seconds > 60 then say("usage: /brboss pull 3-60 (seconds)") return end
   if InCombatLockdown() or inEncounter() then say("not in combat or during an encounter.") return end
   if SlashCmdList["pull"] and pcall(SlashCmdList["pull"], tostring(seconds)) then return "BigWigs" end
   if type(DBM) == "table" and type(DBM.CreatePullTimer) == "function" and pcall(DBM.CreatePullTimer, DBM, seconds) then return "DBM" end
@@ -257,16 +257,16 @@ function BRB.StartPull(seconds)
 end
 
 local HELP = {
-  "/brb <1-60> - start a raid break (DBM or BigWigs if you lead or assist, otherwise a personal timer)",
-  "/brb 0 - cancel the break",
-  "/brb pull <3-60> - start a pull countdown",
-  "/brb test - hear a line now",
-  "/brb mute - turn the lines on or off",
-  "/brb options - open the settings",
-  "/brb debug - check your setup (client APIs, DBM/BigWigs hooks)",
+  "/brboss <1-60> - start a raid break (DBM or BigWigs if you lead or assist, otherwise a personal timer)",
+  "/brboss 0 - cancel the break",
+  "/brboss pull <3-60> - start a pull countdown",
+  "/brboss test - hear a line now",
+  "/brboss mute - turn the lines on or off",
+  "/brboss options - open the settings",
+  "/brboss debug - check your setup (client APIs, DBM/BigWigs hooks)",
 }
 
-ns.Core.Setup({ cmd = "/brb", required = { "PlaySoundFile", "C_Timer.NewTimer", "C_Timer.After" },
+ns.Core.Setup({ cmd = "/brboss", required = { "PlaySoundFile", "C_Timer.NewTimer", "C_Timer.After" },
   optional = { "DBM.RegisterCallback", "BigWigsLoader.RegisterMessage", "C_PartyInfo.DoCountdown", "LibStub" },
   debugLines = function()
     return { ("DBM hooked: %s, BigWigs hooked: %s, timers pending: %d"):format(tostring(BRB.dbmHooked == true), tostring(BRB.bwHooked == true), #pending) }
@@ -285,11 +285,10 @@ function BRB.Slash(msg)
   elseif a == "mute" then db.enabled = not db.enabled; say(db.enabled and "lines on." or "lines muted.")
   elseif a == "debug" then ns.Core.PrintDebug()
   elseif a == "options" or a == "config" then if ns.OpenOptions then ns.OpenOptions() end
-  else say("unknown command; /brb help") end
+  else say("unknown command; /brboss help") end
 end
 
-SLASH_BRBOSS1 = "/brb"
-SLASH_BRBOSS2 = "/brboss"
+SLASH_BRBOSS1 = "/brboss"
 SlashCmdList.BRBOSS = function(msg) BRB.Slash(msg) end
 
 -- Boot -----------------------------------------------------------------------------------------------------------
