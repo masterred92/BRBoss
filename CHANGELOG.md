@@ -2,6 +2,7 @@
 
 ## 1.1.1
 - Dropped `/brb` because it is the game's built-in "be right back" emote. Every command now uses `/brboss` (`/brboss 5`, `/brboss 0`, `/brboss pull`, `/brboss test`, `/brboss mute`, `/brboss options`, `/brboss debug`).
+- New store and in-game icon.
 
 ## 1.1.0
 - Never plays a quote over another of Kenny's voice addons, DBM's victory sound or a BigWigs countdown.
