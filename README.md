@@ -23,9 +23,9 @@ It doesn't send hidden addon messages and doesn't automate anything. It only rea
 **Works with:** DBM or BigWigs (required for the timers). Never talks over Wipe & Win Lines, Questie: Job's Done or a Grunt Count countdown.
 
 ## Download
-- **Wago Addons:** coming at launch (Nov 4). The link goes here when the project is live.
-- **CurseForge:** maybe later.
-- **GitHub:** [Releases](https://github.com/masterred92/BRBoss/releases) (from the first tagged release) · [Issues](https://github.com/masterred92/BRBoss/issues)
+- **CurseForge:** https://www.curseforge.com/wow/addons/brboss. Author: [MasterRed92](https://www.curseforge.com/members/masterred92/projects).
+- **Wago Addons:** https://addons.wago.io/addons/brboss.
+- **GitHub:** [Releases](https://github.com/masterred92/BRBoss/releases) · [Issues](https://github.com/masterred92/BRBoss/issues)
 - **More by Kenny:** [WipeAndWin](https://github.com/masterred92/WipeAndWin) · [FloorIsLava](https://github.com/masterred92/FloorIsLava) · [GruntCount](https://github.com/masterred92/GruntCount) · [ParchmentBars](https://github.com/masterred92/ParchmentBars) · [all WoW: Forever addons](https://github.com/masterred92/wow-forever-addons)
 
 ## Commands
